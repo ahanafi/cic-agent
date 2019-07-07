@@ -1,0 +1,33 @@
+Options Indexes FollowSymLinks
+
+ErrorDocument 404 /cic-agent/admin/404.php
+
+RewriteEngine On
+RewriteRule ^login$ login.php
+RewriteRule ^logout$ logout.php
+
+RewriteRule ^dashboard$ index.php
+RewriteRule ^download-template/(.*)$ download-template.php?filename=$1
+
+RewriteRule ^cic-agent$ index.php?page=cic-agent [L]
+RewriteRule ^cic-agent/create$ index.php?page=cic-agent&action=create [L]
+RewriteRule ^cic-agent/edit/([0-9]+)$ index.php?page=cic-agent&action=edit&id=$1 [L]
+RewriteRule ^cic-agent/delete/([0-9]+)$ index.php?page=cic-agent&action=delete&id=$1 [L]
+
+RewriteRule ^calon-mahasiswa$ index.php?page=calon-mahasiswa [L]
+RewriteRule ^calon-mahasiswa/create$ index.php?page=calon-mahasiswa&action=create [L]
+RewriteRule ^calon-mahasiswa/edit/([0-9]+)$ index.php?page=calon-mahasiswa&action=edit&id=$1 [L]
+RewriteRule ^calon-mahasiswa/delete/([0-9]+)$ index.php?page=calon-mahasiswa&action=delete&id=$1 [L]
+
+RewriteRule ^program-studi$ index.php?page=program-studi [L]
+RewriteRule ^program-studi/create$ index.php?page=program-studi&action=create [L]
+RewriteRule ^program-studi/edit/([0-9]+)$ index.php?page=program-studi&action=edit&id=$1 [L]
+RewriteRule ^program-studi/delete/([0-9]+)$ index.php?page=program-studi&action=delete&id=$1 [L]
+
+RewriteRule ^insentif-registrasi$ index.php?page=insentif-registrasi [L]
+RewriteRule ^insentif-registrasi/create$ index.php?page=insentif-registrasi&action=create [L]
+RewriteRule ^insentif-registrasi/edit/([0-9]+)$ index.php?page=insentif-registrasi&action=edit&id=$1 [L]
+RewriteRule ^insentif-registrasi/delete/([0-9]+)$ index.php?page=insentif-registrasi&action=delete&id=$1 [L]
+
+RewriteRule ^insentif-agent$ index.php?page=insentif-agent [L]
+RewriteRule ^insentif-agent/([0-9]+)$ index.php?page=insentif-agent&action=detail&kode=$1 [L]
