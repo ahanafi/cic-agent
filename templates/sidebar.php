@@ -74,11 +74,11 @@ if($page == "") {
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item <?php echo $data_kelas; ?>">
+        <!--li class="nav-item <?php echo $data_kelas; ?>">
             <a class="nav-link" href="<?php echo base_url("program-studi") ?>">
                 <span>Program Studi</span>
             </a>
-        </li>
+        </li-->
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item <?php echo $data_kelas; ?>">

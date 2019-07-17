@@ -31,3 +31,6 @@ RewriteRule ^insentif-registrasi/delete/([0-9]+)$ index.php?page=insentif-regist
 
 RewriteRule ^insentif-agent$ index.php?page=insentif-agent [L]
 RewriteRule ^insentif-agent/([0-9]+)$ index.php?page=insentif-agent&action=detail&kode=$1 [L]
+
+RewriteRule ^laporan$ index.php?page=laporan [L]
+RewriteRule ^laporan/export$ export.php [L]

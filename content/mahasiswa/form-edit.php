@@ -38,17 +38,8 @@ $calon = result($calon_mahasiswa);
                         <input type="text" name="nama" class="form-control" required value="<?= $calon->nama ?>">
                         <br>
 
-                        <label for="jk" class="form-control-label">Jenis Kelamin</label>
-                        <select name="jk" id="" class="form-control" required>
-                            <option>-- Pilih Jenis Kelamin --</option>
-                            <?php if ($calon->jk == "L"): ?>
-                                <option value="L" selected>Laki-Laki</option>
-                                <option value="P">Perempuan</option>
-                            <?php else: ?>
-                                <option value="L">Laki-Laki</option>
-                                <option value="P" selected>Perempuan</option>
-                            <?php endif ?>
-                        </select>
+                        <label for="asal_sekolah" class="form-control-label">Asal Sekolah</label>
+                        <input type="text" name="asal_sekolah" class="form-control" required value="<?= $calon->asal_sekolah ?>">
                         <br>
 
                         <label for="prodi" class="form-control-label">Program Studi</label>
@@ -80,35 +71,12 @@ $calon = result($calon_mahasiswa);
                         </select>
                         <br><br>
 
-                        <label for="gelombang" class="form-control-label">Gelombang Pendaftaran</label>
-                        <select name="gelombang" class="form-control" required>
-                            <option>-- Pilih Agent --</option>
-                            <?php if ($calon->gelombang == 1): ?>
-                                <option value="1" selected>Gelombang 1</option>
-                                <option value="2">Gelombang 2</option>
-                                <option value="3">Gelombang 3</option>
-                                <option value="4">Gelombang 4</option>
-                            <?php elseif ($calon->gelombang == 2): ?>
-                                <option value="1">Gelombang 1</option>
-                                <option value="2" selected>Gelombang 2</option>
-                                <option value="3">Gelombang 3</option>
-                                <option value="4">Gelombang 4</option>
-                            <?php elseif($calon->gelombang == 4): ?>
-                                <option value="1">Gelombang 1</option>
-                                <option value="2">Gelombang 2</option>
-                                <option value="3" selected>Gelombang 3</option>
-                                <option value="4">Gelombang 4</option>
-                            <?php else: ?>
-                                <option value="1">Gelombang 1</option>
-                                <option value="2">Gelombang 2</option>
-                                <option value="3">Gelombang 3</option>
-                                <option value="4" selected>Gelombang 4</option>
-                            <?php endif ?>
-                        </select>
+                        <label for="tanggal" class="form-control-label">Tanggal Registrasi</label>
+                        <input type="text" name="tanggal" class="form-control" required placeholder="Format tanggal : YYYY-MM-DD" value="<?= $calon->tanggal_registrasi ?>">
                         <br>
 
-                        <label for="tanggal" class="form-control-label">Tanggal Registrasi</label>
-                        <input type="text" name="tanggal" class="form-control" required placeholder="Format tanggal : YYYY/MM/DD" value="<?= $calon->tanggal_registrasi ?>">
+                        <label for="gelombang" class="form-control-label">Gelombang Pendaftaran</label>
+                        <input type="text" name="gelombang" class="form-control" value="<?= "Gelombang $calon->gelombang"; ?>" readonly>
                         <br><br>
                             
                         <div class="row mt-2">
@@ -138,17 +106,20 @@ $calon = result($calon_mahasiswa);
 if (isset($_POST['submit'])) {
     $nomor_registrasi = getPost('nomor_registrasi');
     $nama = getPost('nama');
-    $jk   = getPost('jk');
+    $asal_sekolah   = getPost('asal_sekolah');
     $prodi = getPost('prodi');
     $agent = getPost('agent');
     $gelombang = getPost('gelombang');
     $tanggal = getPost('tanggal');
 
-    if((empty(trim($nomor_registrasi))) || (empty(trim($nama))) || (empty(trim($jk))) || (empty(trim($prodi))) || (empty(trim($agent))) || (empty(trim($gelombang))) || (empty(trim($tanggal)))) {
+    $gelombang = explode(" ", $gelombang);
+    $gelombang = $gelombang[1];
+
+    if((empty(trim($nomor_registrasi))) || (empty(trim($nama))) || (empty(trim($asal_sekolah))) || (empty(trim($prodi))) || (empty(trim($agent))) || (empty(trim($gelombang))) || (empty(trim($tanggal)))) {
         alert("Form tidak boleh ada yang kosong!", "back");
     } else {
         $nama = addslashes($nama);
-        $update = update("calon_mahasiswa", "nomor_registrasi = '$nomor_registrasi', nama = '$nama', jk = '$jk', id_jurusan = '$prodi', id_agent = '$agent', gelombang = '$gelombang', tanggal_registrasi = '$tanggal'", $id);
+        $update = update("calon_mahasiswa", "nomor_registrasi = '$nomor_registrasi', nama = '$nama', asal_sekolah = '$asal_sekolah', id_jurusan = '$prodi', id_agent = '$agent', gelombang = '$gelombang', tanggal_registrasi = '$tanggal'", $id);
 
         if($update) {
             alert("Data calon mahasiswa berhasil diperbarui!", base_url("calon-mahasiswa"));

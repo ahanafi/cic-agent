@@ -15,6 +15,7 @@ function result($query) {
 
 function query($sql){
 	global $link;
+	//die($sql);
 	if ($data = mysqli_query($link, $sql) or die(mysqli_error($link))) {
 		return $data;
 	}

@@ -30,6 +30,8 @@ $total_reward = 0;
             <h6 class="m-0 font-weight-bold text-primary">Data Agent</h6>
         </div>
         <div class="card-body">
+            <a href="<?= base_url("export-agent.php?kode=".$agent->kode) ?>" class="btn btn-success" target="_blank">Export PDF</a>
+            <br><br>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
@@ -61,6 +63,23 @@ $total_reward = 0;
                         <td>Grade</td>
                         <td>:</td>
                         <td><?= $agent->grade ?></td>
+                    </tr>
+                    <tr>
+                        <td>Bonus</td>
+                        <td>:</td>
+                        <td>
+                            <?php
+                                $sql_hitung = select("*", "calon_mahasiswa", "id_agent = '$agent->id'");
+                                $sql_bonus = select("*", "bonus", "id = 1");
+                                $bonus = result($sql_bonus);
+
+                                if(cekRow($sql_hitung) > $bonus->jumlah_minimal) {
+                                    echo "Rp. " . number_format($bonus->reward);
+                                } else {
+                                    echo "Rp. 0";
+                                }
+                            ?>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -105,11 +124,12 @@ $total_reward = 0;
                                         $gelombang = "gelombang = '$mhs->gelombang' AND ";
                                     }
 
+                                    //Amdil data reward dari table insentif berdasarkan gelombang dan jenjang mahasiswa pendaftar
                                     $sql_insentif = select("reward", "insentif", " $gelombang jenjang = '$mhs->jenjang' AND grade = '$agent->grade'");
 
                                     $insentif = result($sql_insentif);
                                     echo "Rp. " .number_format($insentif->reward);
-                                    $total_reward += $insentif->reward;
+                                    $total_reward = $total_reward + $insentif->reward;
                                 ?>
                             </td>
                         </tr>

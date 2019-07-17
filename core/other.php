@@ -140,7 +140,7 @@ function singkatanProdi($string) {
 			$prodi_text_2 .= $exp_2[$i][0]."";
 		}
 
-		$prodi_text = $prodi_text_1."-".$prodi_text_2;
+		$prodi_text = $prodi_text_1."".$prodi_text_2;
 	} else {
 		$exp2 = explode(" ", $exp1[0]);
 		$total_word = count($exp2);

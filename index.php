@@ -19,13 +19,14 @@ $action = getFrom('action');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>CIC Agent System - Dashboard</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?php echo base_url("assets/vendor/fontawesome-free/css/all.min.css") ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url("assets/vendor/select2/select2.min.css") ?>" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url("assets/vendor/select2/select2-bootstrap4.min.css") ?>" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url("assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.standalone.min.css") ?>">
 
     <!-- Custom styles for this template-->
     <link href="<?php echo base_url("assets/css/sb-admin-2.min.css") ?>" rel="stylesheet">
@@ -107,6 +108,10 @@ $action = getFrom('action');
                         elseif($action == "detail"):
                             call_content("insentif-agent", "detail");
                         endif;
+                    elseif($page == "laporan"):
+                        if($action == ""):
+                            call_content("laporan", "index");
+                        endif;
 
                     else:
                         require_once("content/404.php");
@@ -143,7 +148,7 @@ $action = getFrom('action');
                 <div class="modal-body">Apakah Anda yakin akan keluar dari Aplikasi ini. ?</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-danger" href="<?php echo base_url("admin/logout") ?>">Logout</a>
+                    <a class="btn btn-danger" href="<?php echo base_url("logout") ?>">Logout</a>
                 </div>
             </div>
         </div>
@@ -202,6 +207,46 @@ $action = getFrom('action');
                         $("input[name=kode_agent]").val(response);
                     }
                 });
+            });
+        </script>
+    <?php elseif ($page == "calon-mahasiswa" && ($action == "create" || $action == "edit")): ?>
+        <script src="<?php echo base_url("assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js") ?>"></script>
+        <script src="<?= base_url("assets/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.id.min.js") ?>"></script>
+        <script type="text/javascript">
+            $("input[name=tanggal]").datepicker({
+                autoclose:true,
+                format: 'yyyy-mm-dd',
+                language:'id'
+            });
+            $("input[name=tanggal]").on('changeDate', function() {
+                let tanggal = $(this).val();
+                let URL = '<?= base_url(); ?>/get-gelombang.php';
+
+                $.ajax({
+                    url: URL,
+                    method:'POST',
+                    data:{'tanggal':tanggal},
+                    success:function(response) {
+                        if(response.gelombang > 0) {
+                            $("input[name=gelombang]").val('Gelombang '+response.gelombang);
+                        } else {
+                            $("input[name=gelombang]").val('');
+                            $("input[name=tanggal]").focus();
+                            alert("Gelombang pendaftaran belum dibuka!");
+
+                        }
+                    }
+                });
+            });
+        </script>
+    <?php elseif ($page == "laporan"): ?>
+        <script src="<?php echo base_url("assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js") ?>"></script>
+        <script src="<?= base_url("assets/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.id.min.js") ?>"></script>
+        <script type="text/javascript">
+            $("input[name=awal], input[name=akhir]").datepicker({
+                autoclose:true,
+                format: 'yyyy-mm-dd',
+                language:'id'
             });
         </script>
     <?php endif; ?>

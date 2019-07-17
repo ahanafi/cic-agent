@@ -32,12 +32,8 @@ $page = getFrom('page');
                         <input type="text" name="nama" class="form-control" required>
                         <br>
 
-                        <label for="jk" class="form-control-label">Jenis Kelamin</label>
-                        <select name="jk" id="" class="form-control" required>
-                            <option>-- Pilih Jenis Kelamin --</option>
-                            <option value="L">Laki-Laki</option>
-                            <option value="P">Perempuan</option>
-                        </select>
+                        <label for="asal_sekolah" class="form-control-label">Asal Sekolah</label>
+                        <input type="text" name="asal_sekolah" class="form-control" required>
                         <br>
 
                         <label for="prodi" class="form-control-label">Program Studi</label>
@@ -61,19 +57,13 @@ $page = getFrom('page');
                         </select>
                         <br><br>
 
-                        <label for="gelombang" class="form-control-label">Gelombang Pendaftaran</label>
-                        <select name="gelombang" class="form-control" required>
-                            <option>-- Pilih Gelombang --</option>
-                            <option value="1">Gelombang 1</option>
-                            <option value="2">Gelombang 2</option>
-                            <option value="3">Gelombang 3</option>
-                            <option value="4">Gelombang 4</option>
-                        </select>
+                        <label for="tanggal" class="form-control-label">Tanggal Registrasi</label>
+                        <input type="text" name="tanggal" class="form-control" required placeholder="Format tanggal : YYYY-MM-DD" autocomplete="off">
                         <br>
 
-                        <label for="tanggal" class="form-control-label">Tanggal Registrasi</label>
-                        <input type="text" name="tanggal" class="form-control" required placeholder="Format tanggal : YYYY/MM/DD">
-                        <br><br>
+                        <label for="gelombang" class="form-control-label">Gelombang Pendaftaran</label>
+                        <input type="text" name="gelombang" class="form-control" readonly>
+                        <br>
                             
                         <div class="row mt-2">
                             <div class="col-md-6">
@@ -102,17 +92,20 @@ $page = getFrom('page');
 if (isset($_POST['submit'])) {
     $nomor_registrasi = getPost('nomor_registrasi');
     $nama = getPost('nama');
-    $jk   = getPost('jk');
+    $asal_sekolah   = getPost('asal_sekolah');
     $prodi = getPost('prodi');
     $agent = getPost('agent');
     $gelombang = getPost('gelombang');
     $tanggal = getPost('tanggal');
 
-    if((empty(trim($nomor_registrasi))) || (empty(trim($nama))) || (empty(trim($jk))) || (empty(trim($prodi))) || (empty(trim($agent))) || (empty(trim($gelombang))) || (empty(trim($tanggal)))) {
+    $gelombang = explode(" ", $gelombang);
+    $gelombang = $gelombang[1];
+
+    if((empty(trim($nomor_registrasi))) || (empty(trim($nama))) || (empty(trim($asal_sekolah))) || (empty(trim($prodi))) || (empty(trim($agent))) || (empty(trim($gelombang))) || (empty(trim($tanggal)))) {
         alert("Form tidak boleh ada yang kosong!", "back");
     } else {
         $nama = addslashes($nama);
-        $insert = insert("calon_mahasiswa", "nomor_registrasi, nama, jk, id_jurusan, id_agent, gelombang, tanggal_registrasi", "'$nomor_registrasi', '$nama', '$jk', '$prodi', '$agent', '$gelombang', '$tanggal'");
+        $insert = insert("calon_mahasiswa", "nomor_registrasi, nama, asal_sekolah, id_jurusan, id_agent, gelombang, tanggal_registrasi", "'$nomor_registrasi', '$nama', '$asal_sekolah', '$prodi', '$agent', '$gelombang', '$tanggal'");
 
         if($insert) {
             alert("Data calon mahasiswa berhasil ditambahkan!", base_url("calon-mahasiswa"));

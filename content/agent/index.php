@@ -9,7 +9,7 @@ $agent = select("*", "agent");
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-3">
-        <h1 class="h3 mb-0 text-gray-800">CIC Agent</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data CIC Agent</h1>
         <div class="btn-group-sm">
             <a href="<?php echo base_url($page."/create") ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="tooltip" title="Tambah <?= ucwords(str_replace("-", " ", $page)) ?>">
                 <i class="fas fa-plus text-white-50"></i>
